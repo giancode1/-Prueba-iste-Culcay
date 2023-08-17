@@ -6,14 +6,8 @@ export const SearchProduct = () => {
 
   const handleInputChange = (e) => setInputSearch(e.target.value.trim());
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log(inputSearch)
-  };
-
   return (
     <div className="pt-2 pb-4 pl-2 bg-white dark:bg-gray-900">
-      <form onSubmit={handleSearch}>
         <label htmlFor="table-search" className="sr-only">
           Buscar
         </label>
@@ -44,7 +38,6 @@ export const SearchProduct = () => {
             onChange={handleInputChange}
           />
         </div>
-      </form>
     </div>
   );
 };

@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import Footer from "@/components/Footer";
-import { Modal } from "@/components/Modal";
+import { CreateProduct } from "@/components/CreateProduct";
 import { ProductContext } from "@/context/ProductContext";
 import { ListProducts } from "@/components/ListProducts";
 import { SearchProduct } from "@/components/SearchProduct";
@@ -21,13 +21,11 @@ export default function Home() {
         <ToggleTheme />
       </div>
 
-      <Modal />
+      <CreateProduct />
 
-      <div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <SearchProduct />
-            <ListProducts />
-          </div>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <SearchProduct />
+        <ListProducts />
       </div>
 
     <Footer />

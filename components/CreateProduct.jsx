@@ -1,7 +1,7 @@
 import { ProductContext } from '@/context/ProductContext';
 import { useState, useContext } from 'react';
 
-export const Modal = () => {
+export const CreateProduct = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         nombre: '',

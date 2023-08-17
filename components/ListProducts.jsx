@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ProductContext } from "@/context/ProductContext";
 
 export const ListProducts = () => {
-  const { products, inputSearch } = useContext(ProductContext);
+  const { products, getProducts, inputSearch } = useContext(ProductContext);
   
   let result = products;
 
@@ -12,6 +12,23 @@ export const ListProducts = () => {
       const p =  product.nombre.toLowerCase()
       return p.includes(inputSearch.toLowerCase())
     })
+  }
+
+  //eliminar producto por id
+  const handleDeleteProduct = async (id) => {
+    try {
+      await fetch("/api/eliminar-producto?id="+id, {
+        method: 'DELETE',
+      });
+      getProducts();
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
+
+  //editar producto por id
+  const handleEditProduct = async(id) => {
+    console.log("editar:", id)
   }
 
   return (
@@ -53,10 +70,16 @@ export const ListProducts = () => {
               <td className="px-6 py-4">{p.precio}</td>
               <td className="px-6 py-4">{p.cantidad_en_stock}</td>
               <td className="px-6 py-4">
-                <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                <a onClick={()=>handleEditProduct(p.id)}
+                    className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                    style={{cursor: "pointer"}}
+                >
                   Editar
                 </a>
-                <a className="font-medium text-red-600 dark:text-red-500 hover:underline ml-2">
+                <a  onClick={()=>handleDeleteProduct(p.id)}
+                    className="font-medium text-red-600 dark:text-red-500 hover:underline ml-2"
+                    style={{cursor: "pointer"}}
+                >
                   Eliminar
                 </a>
               </td>
