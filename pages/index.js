@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ToggleTheme } from "@/components/ToggleTheme";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -17,12 +18,17 @@ export default function Home() {
   if (!products) return <p>No data</p>;
 
   return (
-    <main className="">
-
-      <h1 className="">Productos</h1>
+    <main className=" dark:bg-gray-800 dark:text-white py-2 px-2">
+      <h1 className="text-2xl text-center">Productos</h1>
       <p>Giancarlo Culcay</p>
+      
+      <div className="flex items-center justify-end">
+        <ToggleTheme />
+      </div>
+
+
       <div>
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {/* search */}
             <div className="pb-4 bg-white dark:bg-gray-900">
               <label htmlFor="table-search" className="sr-only">Search</label>
@@ -60,8 +66,8 @@ export default function Home() {
 
               <tbody>
                 {
-                  products.map(p => 
-                    <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  products.map((p,key) => 
+                    <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={p.id}>
                       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {p.nombre}  
                       </th>
@@ -82,7 +88,6 @@ export default function Home() {
               </tbody>
             </table>
           </div>
-        
       </div>
       
     </main>
