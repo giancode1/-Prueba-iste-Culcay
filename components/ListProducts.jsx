@@ -2,7 +2,17 @@ import { useContext } from "react";
 import { ProductContext } from "@/context/ProductContext";
 
 export const ListProducts = () => {
-  const { products } = useContext(ProductContext);
+  const { products, inputSearch } = useContext(ProductContext);
+  
+  let result = products;
+
+  //busca en base al nombre
+  if(inputSearch){
+    result = products.filter(product => {
+      const p =  product.nombre.toLowerCase()
+      return p.includes(inputSearch.toLowerCase())
+    })
+  }
 
   return (
     <>
@@ -28,7 +38,7 @@ export const ListProducts = () => {
         </thead>
 
         <tbody>
-          {products.map((p) => (
+          {result.map((p) => (
             <tr
               className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
               key={p.id}
