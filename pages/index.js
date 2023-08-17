@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { ToggleTheme } from "@/components/ToggleTheme";
+import Footer from "@/components/Footer";
+import { Modal } from "@/components/Modal";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -19,18 +21,18 @@ export default function Home() {
 
   return (
     <main className=" dark:bg-gray-800 dark:text-white py-2 px-2">
-      <h1 className="text-2xl text-center">Productos</h1>
-      <p>Giancarlo Culcay</p>
+      <h1 className="text-3xl text-center">Productos</h1>
       
       <div className="flex items-center justify-end">
         <ToggleTheme />
       </div>
 
+      <Modal />
 
       <div>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {/* search */}
-            <div className="pb-4 bg-white dark:bg-gray-900">
+            <div className="pt-2 pb-4 pl-2 bg-white dark:bg-gray-900">
               <label htmlFor="table-search" className="sr-only">Search</label>
               <div className="relative mt-1">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -38,7 +40,7 @@ export default function Home() {
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                   </svg>
                 </div>
-                <input type="text" id="table-search" className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items" />
+                <input type="text" id="table-search" className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar" />
               </div>
             </div>
 
@@ -66,7 +68,7 @@ export default function Home() {
 
               <tbody>
                 {
-                  products.map((p,key) => 
+                  products.map( p => 
                     <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={p.id}>
                       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {p.nombre}  
@@ -89,6 +91,8 @@ export default function Home() {
             </table>
           </div>
       </div>
+
+    <Footer />
       
     </main>
   );
