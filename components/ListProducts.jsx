@@ -1,9 +1,12 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { ProductContext } from "@/context/ProductContext";
+import { EditProduct } from "./EditProduct";
 
 export const ListProducts = () => {
   const { products, getProducts, inputSearch } = useContext(ProductContext);
-  
+  const [editProduct, setEditProduct] = useState(null);
+  const [openEditModal, setOpenEditModal] = useState(false);
+
   let result = products;
 
   //busca en base al nombre
@@ -27,8 +30,9 @@ export const ListProducts = () => {
   };
 
   //editar producto por id
-  const handleEditProduct = async(id) => {
-    console.log("editar:", id)
+  const handleEditProduct = (product) => {
+    setEditProduct(product);
+    setOpenEditModal(true)
   }
 
   return (
@@ -69,8 +73,9 @@ export const ListProducts = () => {
               <td className="px-6 py-4">{p.descripcion}</td>
               <td className="px-6 py-4">{p.precio}</td>
               <td className="px-6 py-4">{p.cantidad_en_stock}</td>
+
               <td className="px-6 py-4">
-                <a onClick={()=>handleEditProduct(p.id)}
+                <a onClick={()=>handleEditProduct(p)}
                     className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
                     style={{cursor: "pointer"}}
                 >
@@ -83,10 +88,20 @@ export const ListProducts = () => {
                   Eliminar
                 </a>
               </td>
+
             </tr>
           ))}
+
         </tbody>
       </table>
+          {
+            openEditModal && <EditProduct 
+                                editProduct={editProduct} 
+                                setEditProduct={setEditProduct} 
+                                openEditModal={openEditModal} 
+                                setOpenEditModal={setOpenEditModal}
+                            />
+          }
     </>
   );
 };
