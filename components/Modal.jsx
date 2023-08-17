@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { ProductContext } from '@/context/ProductContext';
+import { useState, useContext } from 'react';
 
 export const Modal = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -7,7 +8,8 @@ export const Modal = () => {
         precio: '',
         cantidad_en_stock: '',
         descripcion: ''
-      });
+    });
+    const {getProducts} = useContext(ProductContext)
 
     const toggleModal = () => {
       setIsModalOpen(!isModalOpen);
@@ -23,30 +25,30 @@ export const Modal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData)
+        // console.log(formData)
       
-        // const response = await fetch('/api/crear-producto', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify(formData)
-        // });
+        const response = await fetch('/api/crear-producto', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
       
-        // if (response.ok) {
-        //   setIsModalOpen(false);
-        //   setFormData({
-        //     name: '',
-        //     price: '',
-        //     cantidad_en_stock: '',
-        //     description: ''
-        //   });
-        // } else {
-        //   console.error('Error al crear el producto');
-        // }
+        if (response.ok) {
+          setIsModalOpen(false);
+          setFormData({
+            name: '',
+            price: '',
+            cantidad_en_stock: '',
+            description: ''
+          });
+          getProducts()
+        } else {
+          console.error('Error al crear el producto');
+        }
     };
       
-
     const stopPropagation = (e) => {
         e.stopPropagation(); // Prevent event from reaching the parent (modal background)
     };
@@ -127,7 +129,10 @@ export const Modal = () => {
                                     <textarea id="descripcion" name="descripcion" rows={4} 
                                         value={formData.description}
                                         onChange={handleInputChange}
-                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Escribe la descripción del producto aquí" required defaultValue={""} 
+                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+                                        placeholder="Escribe la descripción del producto aquí" 
+                                        required 
+                                        // defaultValue={""} 
                                     />   
                                 </div>
                             </div>
